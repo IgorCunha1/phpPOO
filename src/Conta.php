@@ -1,65 +1,28 @@
 <?php
 
+require_once 'src/Titular.php';
+
     class Conta
     {
 
-        private String $cpfTitular;
-        private String $nomeTitular;
         private int $saldo;
+        private $titular;
+        private static int $numeroDeContas = 0;
 
 
-        public function __construct(String $cpf,String $nome)
+        public function __construct(Titular $titular)
         {
 
-            $this->cpfTitular = $cpf;
-            $this->validaNomeTitular($nome);
+            $this->titular = $titular;
             $this->saldo = 0;
-        }
 
-
-        private function validaNomeTitular(String $nome):void
-        {
-            if (strlen($nome)<5){
-                echo "O Nome precisa ter mais de 5 caractere";
-                return;
-            }
-
-            $this->nomeTitular = $nome;
-
+            Conta::$numeroDeContas++;
 
         }
 
-        /**
-         * @return mixed
-         */
-        public function getCpfTitular(): String
-        {
-            return $this->cpfTitular;
-        }
 
-        /**
-         * @param mixed $cpfTitular
-         */
-        public function setCpfTitular($cpfTitular): void
-        {
-            $this->cpfTitular = $cpfTitular;
-        }
 
-        /**
-         * @return mixed
-         */
-        public function getNomeTitular() : String
-        {
-            return $this->nomeTitular;
-        }
 
-        /**
-         * @param mixed $nomeTitular
-         */
-        public function setNomeTitular($nomeTitular): void
-        {
-            $this->nomeTitular = $nomeTitular;
-        }
 
         /**
          * @return int
@@ -68,11 +31,6 @@
         {
             return $this->saldo;
         }
-
-
-
-
-
 
        /** Metodos */
 
@@ -105,5 +63,10 @@
             }
             $conta->saldo += $valor;
 
+        }
+
+            public static function getNumeroDeContas() : int
+        {
+                return Conta::$numeroDeContas;
         }
     }
